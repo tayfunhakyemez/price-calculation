@@ -1,0 +1,309 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: boder-box;
+  list-style: none;
+  user-select: none;
+}
+
+/*Mixin*/
+@mixin centered {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@mixin currencySymbol {
+  content: "TL";
+  margin-left: 4px;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  padding-top: 100px;
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 320px;
+  width: 320px;
+}
+.dropdown {
+  position: relative;
+  & > * {
+    user-select: none;
+  }
+  .dropdownList {
+    position: absolute;
+    transform: scaleY(0);
+    z-index: 0;
+    visibility: hidden;
+    background: #fff;
+    border: 1px solid rgba(#d3d3d4, 0.3);
+    border-radius: 8px;
+    margin-top: 8px;
+    box-shadow: 0 0.3px 0.4px rgba(0, 0, 0, 0.025),
+      0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
+    .listItem {
+      border-bottom: 1px solid #d3d3d4;
+      padding: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+      & + .listItem {
+        border: 0;
+      }
+      &:hover {
+        background: #f9f9f9;
+      }
+      &:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+      &:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+      & > p {
+        text-align: justify;
+        font-size: 0.8em;
+        line-height: 1.4;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+      .listItemTitle {
+        @include centered;
+        pointer-events: none;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px dashed #d3d3d4;
+        .listItemTitlePrice {
+          font-size: 1.2em;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .dropdownButton {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    background: #fff;
+    border-radius: 8px;
+    border: 0;
+    box-shadow: 0 0.1px 0.3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: all 0.3s ease;
+    color: #393b44;
+    cursor: pointer;
+    @include centered;
+    &:hover {
+      box-shadow: 0 0.3px 0.4px rgba(0, 0, 0, 0.025),
+        0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+    }
+    &:active {
+      transform: translateY(2px);
+    }
+    .buttonTitle {
+      width: 100%;
+      @include centered;
+      .buttonPrice {
+        margin-right: 8px;
+        font-size: 1.2em;
+        &:after {
+          @include currencySymbol; // Currency Symbol
+        }
+      }
+    }
+    .dropdownButtonIcon {
+      font-size: 1.2em;
+      color: #8d93ab;
+      transition: all 300ms ease-in;
+      pointer-events: none;
+      svg {
+        display: block;
+      }
+    }
+  }
+}
+
+.dropOpen {
+  .dropdownButtonIcon {
+    transform: rotate(180deg);
+  }
+  .dropdownList {
+    transform: scaleY(1);
+    visibility: visible;
+    animation: DropDownOpen 300ms ease forwards;
+  }
+}
+
+.dropClose {
+  .dropdownList {
+    transform: scaleY(0);
+    visibility: hidden;
+    animation: DropDownClose 400ms ease forwards;
+  }
+}
+
+/* CUSTOM CHECKBOX */
+.checkboxList {
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #d3d3d4;
+
+  ul li {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background: #fbfbfb;
+    }
+  }
+
+  // Hide Native Button
+  .checkbox {
+    position: absolute;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+  }
+
+  // Label
+  .checkbox + label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    font-size: 0.8em;
+    span {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      font-size: 1.6em;
+      font-weight: bold;
+      &:before {
+        content: "+";
+        margin-right: 4px;
+        font-size: 0.7em;
+        font-weight: normal;
+      }
+      &:after {
+        @include currencySymbol; // Currency Symbol
+        margin-top: 4px;
+      }
+    }
+  }
+
+  // Custom Button - Basic Style
+  .checkbox + label::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 2px solid #d3d3d4;
+    margin-right: 8px;
+    transition: 0.2s;
+  }
+
+  // Checkbox Only Style
+
+  .checkbox + label::before {
+    border-radius: 6px;
+  }
+
+  // Checkbox Button :checked
+  .checkbox:checked + label::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpolyline points='1 6.5 4 9.5 11 2.5' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #3b70ec;
+    border-color: #3b70ec;
+  }
+
+  .checkbox:focus + label::before {
+    border-color: #3b70ec;
+    box-shadow: 0 0 0 3px rgba(#3b70ec, 0.2);
+  }
+}
+
+// Total
+
+.total {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 15px;
+  @include centered;
+  div:first-child:after {
+    content: ":";
+    margin-left: 8px;
+  }
+  .totalPrice {
+    font-size: 1.3em;
+    font-weight: bold;
+    &:after {
+      @include currencySymbol;
+    }
+  }
+}
+
+@keyframes DropDownOpen {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+  }
+  80% {
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes DropDownClose {
+  0% {
+    visibility: visible;
+    -webkit-transform: translateY(-20px);
+  }
+  60% {
+    -webkit-transform: translateY(30px);
+  }
+  80% {
+    opacity: 1;
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translateY(0);
+  }
+}
+
+.description {
+  text-align: center;
+  max-width: 620px;
+  p {
+    opacity: 0.4;
+    margin-top: 15px;
+    margin-bottom: 30px;
+    line-height: 1.5;
+  }
+}

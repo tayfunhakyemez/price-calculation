@@ -1,0 +1,293 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: boder-box;
+  list-style: none;
+  user-select: none;
+}
+
+/*Mixin*/
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  padding-top: 100px;
+  font-family: sans-serif;
+}
+
+.container {
+  max-width: 320px;
+  width: 320px;
+}
+
+.dropdown {
+  position: relative;
+}
+.dropdown > * {
+  user-select: none;
+}
+.dropdown .dropdownList {
+  position: absolute;
+  transform: scaleY(0);
+  z-index: 0;
+  visibility: hidden;
+  background: #fff;
+  border: 1px solid rgba(211, 211, 212, 0.3);
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow: 0 0.3px 0.4px rgba(0, 0, 0, 0.025), 0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
+}
+.dropdown .dropdownList .listItem {
+  border-bottom: 1px solid #d3d3d4;
+  padding: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.dropdown .dropdownList .listItem + .listItem {
+  border: 0;
+}
+.dropdown .dropdownList .listItem:hover {
+  background: #f9f9f9;
+}
+.dropdown .dropdownList .listItem:first-child {
+  border-radius: 8px 8px 0 0;
+}
+.dropdown .dropdownList .listItem:last-child {
+  border-radius: 0 0 8px 8px;
+}
+.dropdown .dropdownList .listItem > p {
+  text-align: justify;
+  font-size: 0.8em;
+  line-height: 1.4;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.dropdown .dropdownList .listItem .listItemTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #d3d3d4;
+}
+.dropdown .dropdownList .listItem .listItemTitle .listItemTitlePrice {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.dropdown .dropdownButton {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.1em;
+  font-weight: bold;
+  background: #fff;
+  border-radius: 8px;
+  border: 0;
+  box-shadow: 0 0.1px 0.3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: all 0.3s ease;
+  color: #393b44;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdown .dropdownButton:hover {
+  box-shadow: 0 0.3px 0.4px rgba(0, 0, 0, 0.025), 0 0.9px 1.5px rgba(0, 0, 0, 0.05), 0 3.5px 6px rgba(0, 0, 0, 0.1);
+}
+.dropdown .dropdownButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+}
+.dropdown .dropdownButton:active {
+  transform: translateY(2px);
+}
+.dropdown .dropdownButton .buttonTitle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dropdown .dropdownButton .buttonTitle .buttonPrice {
+  margin-right: 8px;
+  font-size: 1.2em;
+}
+.dropdown .dropdownButton .buttonTitle .buttonPrice:after {
+  content: "TL";
+  margin-left: 4px;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+.dropdown .dropdownButton .dropdownButtonIcon {
+  font-size: 1.2em;
+  color: #8d93ab;
+  transition: all 300ms ease-in;
+  pointer-events: none;
+}
+.dropdown .dropdownButton .dropdownButtonIcon svg {
+  display: block;
+}
+
+.dropOpen .dropdownButtonIcon {
+  transform: rotate(180deg);
+}
+.dropOpen .dropdownList {
+  transform: scaleY(1);
+  visibility: visible;
+  animation: DropDownOpen 300ms ease forwards;
+}
+
+.dropClose .dropdownList {
+  transform: scaleY(0);
+  visibility: hidden;
+  animation: DropDownClose 400ms ease forwards;
+}
+
+/* CUSTOM CHECKBOX */
+.checkboxList {
+  margin-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #d3d3d4;
+}
+.checkboxList ul li {
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.checkboxList ul li:hover {
+  background: #fbfbfb;
+}
+.checkboxList .checkbox {
+  position: absolute;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+.checkboxList .checkbox + label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 0.8em;
+}
+.checkboxList .checkbox + label span {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  font-size: 1.6em;
+  font-weight: bold;
+}
+.checkboxList .checkbox + label span:before {
+  content: "+";
+  margin-right: 4px;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+.checkboxList .checkbox + label span:after {
+  content: "TL";
+  margin-left: 4px;
+  font-size: 0.7em;
+  font-weight: normal;
+  margin-top: 4px;
+}
+.checkboxList .checkbox + label::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border: 2px solid #d3d3d4;
+  margin-right: 8px;
+  transition: 0.2s;
+}
+.checkboxList .checkbox + label::before {
+  border-radius: 6px;
+}
+.checkboxList .checkbox:checked + label::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpolyline points='1 6.5 4 9.5 11 2.5' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #3b70ec;
+  border-color: #3b70ec;
+}
+.checkboxList .checkbox:focus + label::before {
+  border-color: #3b70ec;
+  box-shadow: 0 0 0 3px rgba(59, 112, 236, 0.2);
+}
+
+.total {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.total div:first-child:after {
+  content: ":";
+  margin-left: 8px;
+}
+.total .totalPrice {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+.total .totalPrice:after {
+  content: "TL";
+  margin-left: 4px;
+  font-size: 0.7em;
+  font-weight: normal;
+}
+
+@keyframes DropDownOpen {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(30px);
+  }
+  80% {
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes DropDownClose {
+  0% {
+    visibility: visible;
+    -webkit-transform: translateY(-20px);
+  }
+  60% {
+    -webkit-transform: translateY(30px);
+  }
+  80% {
+    opacity: 1;
+    -webkit-transform: translateY(-10px);
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translateY(0);
+  }
+}
+.description {
+  text-align: center;
+  max-width: 620px;
+}
+.description p {
+  opacity: 0.4;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
